@@ -141,9 +141,9 @@ class HomeController extends Controller
         {
             $minutos= '0'.$minutos;
         }else{ $minutos=$minutos;}
-        echo 'dia'.$dia,'hora:'.$hora,'minuto'.$minutos;
-        //$horadellegada = $carbon::createFromFormat('H:i:s', $hora . ':' . $minutos . ':' . '00');
-        $horadellegada = $carbon::createFromFormat('H:i:s', '1' . ':' . '00' . ':' . '00');
+        //echo 'dia'.$dia,'hora:'.$hora,'minuto'.$minutos;
+        $horadellegada = $carbon::createFromFormat('H:i:s', $hora . ':' . $minutos . ':' . '00');
+        //$horadellegada = $carbon::createFromFormat('H:i:s', '1' . ':' . '00' . ':' . '00');
         $TipoUsuario = Llave::select('tipo')->where('llave_rfid', $uid)->get()->first();
         //dd($TipoUsuario->tipo);
         if(isset($TipoUsuario)){
@@ -156,7 +156,7 @@ class HomeController extends Controller
             $llaveentrada = Llave::where('llave_rfid', $uid)->count();//comparo si la llave existe
             //dd($llaveentrada); si es 1 existe la llave de entrada
             if ($llaveentrada==0) {
-                echo $llaveentrada;
+                //echo $llaveentrada;
                 return 'LA LLAVE NO EXISTE';
             } else {
                 //return 'PUEDE ENTRAR LICENCIA ACTIVA ESTATUS 1 ';
@@ -180,7 +180,7 @@ class HomeController extends Controller
                                 $desdebdvalido = $carbon::createFromFormat('H:i:s', $horarioindividualempresa->desde);
                                 $hastabdvalido = $carbon::createFromFormat('H:i:s', $horarioindividualempresa->hasta);
                                 $estaensuhora = $horadellegada->diffInMinutes($desdebdvalido, false) * $horadellegada->diffInMinutes($hastabdvalido, false);
-                                echo $desdebdvalido.'desde valido; '.$hastabdvalido.' Hasta vadlido. '. $estaensuhora.' si es negativo esta en su hora si no no';
+                                //echo $desdebdvalido.'desde valido; '.$hastabdvalido.' Hasta vadlido. '. $estaensuhora.' si es negativo esta en su hora si no no';
                                 //dd($estaensuhora);//si es negativa esta en su rango
                                 if ($estaensuhora < 0) {
                                     try

@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersTableSeeder::class);
         $this->call(PermisosTableSeeder::class);
         $this->call(PermisosUsersTableSeeder::class);
-
+            /*
         $this->call(CargosTableSeeder::class);
         $this->call(PuertasTableSeeder::class);
         $this->call(PuertasUsersTableSeeder::class);
@@ -28,6 +28,6 @@ class DatabaseSeeder extends Seeder
         $this->call(IntervalosfuncionariosPuertasTableSeeder::class);
         $this->call(IntervalosseccionesTableSeeder::class);
         $this->call(HorariogeneralTableSeeder::class);
-
+        */
     }
 }
