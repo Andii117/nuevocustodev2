@@ -33,20 +33,32 @@
                     <th>{!!link_to_route('IntervalosInvitados.show', $title = 'ver', $parameters = $intervalo, $attributes = ['class'=>'btn btn-primary'])!!}</th>
                     <?php
                         $hoy = \Carbon\Carbon::now();
-                        $fecha_del_intervalo = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $intervalo->fecha.' '.$intervalo->desde);
+                        $fecha_del_intervalo_desde = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $intervalo->fecha.' '.$intervalo->desde);
+                        $fecha_del_intervalo_hasta = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $intervalo->fecha.' '.$intervalo->hasta);
                         $editable= false;
-                        if ($hoy->diffInMinutes($fecha_del_intervalo,false ) > 0){
+                        $concluible=false;
+                        if (!($hoy->diffInMinutes($fecha_del_intervalo_hasta,false ) < 0)){
                             $editable = true;
+                        }
+                        if ($hoy->diffInMinutes($fecha_del_intervalo_desde,false )*$hoy->diffInMinutes($fecha_del_intervalo_hasta,false) < 0){
+                            $concluible=true;
                         }
 
                     ?>
-                    @if($editable)
+                    @if($concluible)
+                        <th>
+                        {!!link_to_route('IntervalosInvitados.concluir', $title = 'Concluir', $parameters = $intervalo, $attributes = ['class'=>'btn btn-info'])!!}
+                        </th>
+
+                    @elseif($editable)
                         <th>
                             {!!Form::open(['route'=>['IntervalosInvitados.destroy',$intervalo], 'method'=>'DELETE'])!!}
                             {!!Form::submit('Eliminar',['class'=>'btn btn-danger'])!!}
                             {!!Form::close()!!}
                         </th>
+
                     @else
+
                         <th>
                             {!!Form::submit('Eliminar',['class'=>'btn btn-default'])!!}
                         </th>

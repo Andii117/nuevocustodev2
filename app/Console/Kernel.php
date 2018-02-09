@@ -24,6 +24,15 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+
+
+        $schedule->call(function () {
+            DB::table('HorariosGenerales')->insert([
+                'desde' => '08:00:00',
+                'hasta' => '12:00:00',
+                'dia' => 1,
+            ]);
+        })->everyMinute();
         // $schedule->command('inspire')
         //          ->hourly();
     }

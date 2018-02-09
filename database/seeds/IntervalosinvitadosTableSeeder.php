@@ -17,8 +17,8 @@ class IntervalosinvitadosTableSeeder extends Seeder
                 if ($i < 4) {
                     DB::table('IntervalosInvitados')->insert([
                         'targeta_rfid' => '4A2B2FD' . $i,
-                        'desde' => $carbon->now()->addHour(2),
-                        'hasta' => $carbon->now()->addHour(4),
+                        'desde' => $carbon->now()->addHour(1),
+                        'hasta' => $carbon->now()->addHour(2),
                         'invitado_id' => $j,
                         'fecha' => $carbon->now()->subDays($i),
                     ]);

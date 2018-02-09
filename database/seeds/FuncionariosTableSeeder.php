@@ -16,7 +16,7 @@ class FuncionariosTableSeeder extends Seeder
             DB::table('Funcionarios')->insert([
                 'id' => $i,
                 'cedula' => '112154321'.$i,
-                'nombre' => 'Funcionario ',
+                'nombre' => 'Funcionario_'.$i,
                 'foto'=>'F'.$i,
                 'fecha_nacimiento' => '2017-05-22 16:15:10',
                 'apellido' => 'Apellido ',

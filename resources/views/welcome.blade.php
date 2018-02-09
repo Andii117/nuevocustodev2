@@ -25,7 +25,6 @@
             {!!Form::password('password',['class'=>'form-control','placeholder'=>'Usuario'])!!}
         </div>
         {!!Form::submit('Registrar',['class'=>'btn btn-primary'])!!}
-        >>>>>>> f04bfb53d812dedc983393a488e3cb8c690e8fd6:resources/views/Usuario/create.blade.php
         {!!Form::close()!!}
 
     </div>

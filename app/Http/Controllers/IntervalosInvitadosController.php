@@ -133,8 +133,8 @@ class IntervalosInvitadosController extends Controller
         try{
             DB::beginTransaction();
 
-            IntervaloInvitadoPuerta::where('intervalo_invitado_id',$id)
-                    ->delete();
+                IntervaloInvitadoPuerta::where('intervalo_invitado_id',$id)
+                        ->delete();
                 $intervalo_invitado = DB::table('IntervalosInvitados')->select('invitado_id','fecha','hasta')->where('id',$id)->first();
 
                 DB::table('llaves')
@@ -202,6 +202,32 @@ class IntervalosInvitadosController extends Controller
             DB::rollback();
             return null;
         }
+
+    }
+
+
+    public function concluirIntevaloInvitado($id)
+    {
+
+        try{
+            DB::beginTransaction();
+
+
+                $carbon= new \Carbon\Carbon();
+                $intervalo_invitado = Intervaloinvitado::find($id);
+                DB::table('llaves')
+                    ->where([
+                        ['id_asociado','=', $intervalo_invitado->invitado_id+100000],
+                        ['fecha_expiracion','=', Carbon::createFromFormat('Y-m-d H:i:s', $intervalo_invitado->fecha.' '.$intervalo_invitado->hasta)->toDateTimeString()]
+                    ])->delete();
+                $intervalo_invitado->update(['hasta'=>$carbon->now()->subMinutes(1)->toTimeString()]);
+            DB::commit();
+        } catch (\Exception $ex){
+            DB::rollback();
+           dd($ex);
+        }
+        return redirect('/invitados/'.$intervalo_invitado->invitado_id.'/edit')->with(['message'=>'El intervalo se concluyo correctamente','tipo'=>'message']);
+
 
     }
 }
